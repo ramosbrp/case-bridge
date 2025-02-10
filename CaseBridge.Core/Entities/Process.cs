@@ -1,4 +1,4 @@
-﻿namespace CaseBridge.Core;
+﻿namespace CaseBridge.Domain.Entities;
 
 public class Process
 {
