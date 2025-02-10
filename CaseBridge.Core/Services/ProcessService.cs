@@ -1,4 +1,5 @@
-﻿using CaseBridge.Domain.Ports;
+﻿using CaseBridge.Domain.Entities;
+using CaseBridge.Domain.Ports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,22 @@ namespace CaseBridge.Domain.Services
 
         public ProcessService(IProcessService processService) {
             _processService = processService;
+        }
+
+        public async Task<Process> CreateProcessAsync(string title)
+        {
+            try
+            {
+                var newProcess = new Process(title);
+                await _processService.CreateAsync(newProcess);
+
+                return newProcess;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+           
         }
 
 
