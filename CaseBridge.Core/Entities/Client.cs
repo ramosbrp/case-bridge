@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CaseBridge.Core
+namespace CaseBridge.Domain.Entities
 {
-    internal class Client
+    public class Client
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

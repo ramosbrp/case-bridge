@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CaseBridge.Core
+namespace CaseBridge.Domain.Entities
 {
-    internal class ProcessClient
+    public class ProcessClient
     {
         public int ProcessId { get; set; }
         public int ClientId { get; set; }
