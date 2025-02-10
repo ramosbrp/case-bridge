@@ -9,10 +9,10 @@ namespace CaseBridge.Domain.Ports
 {
     public interface IProcessService
     {
-        Task<Process> CreateProcessAsync(Process process);
-        Task<Process> GetProcessAsync(int id);
-        Task<IEnumerable<Process>> GetAllProcessesAsync();
-        Task UpdateProcessAsync(Process process);
-        Task DeleteClientAsync(int id);
+        Task<Process?> GetByIdAsync(Process process);
+        Task<IEnumerable<Process>> GetAllAsync();
+        Task CreateAsync(Process process);
+        Task UpdateAsync(Process process);
+        Task DeleteAsync(int id);
     }
 }
