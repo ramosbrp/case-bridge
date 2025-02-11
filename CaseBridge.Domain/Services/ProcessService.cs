@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CaseBridge.Domain.Services
 {
-    public class ProcessService
+    public class ProcessService: IProcessService
     {
         private readonly IProcessService _processService;
 
@@ -21,7 +21,6 @@ namespace CaseBridge.Domain.Services
             try
             {
                 var newProcess = new Process(title);
-                await _processService.CreateAsync(newProcess);
 
                 return newProcess;
             }

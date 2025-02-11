@@ -1,3 +1,4 @@
+using CaseBridge.Domain.Ports;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CaseBridge.API.Controllers;
@@ -6,17 +7,27 @@ namespace CaseBridge.API.Controllers;
 [Route("[controller]")]
 public class ProcessController : ControllerBase
 {
+    private readonly IProcessService _processService;
 
-
-    public ProcessController()
+    public ProcessController(IProcessService processService)
     {
+        _processService = processService;
     }
 
     [HttpGet(Name = "Process")]
-    public Task<ActionResult> Get()
+    public Task<ActionResult> Post()
     {
-        var mensagem = "ok";
-        return Task.FromResult<ActionResult>(Ok(mensagem));
+        try
+        {
+            _processService.CreateProcessAsync("ok");
+            var mensagem = "ok";
+            return Task.FromResult<ActionResult>(Ok(mensagem));
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
 
     }
 }
