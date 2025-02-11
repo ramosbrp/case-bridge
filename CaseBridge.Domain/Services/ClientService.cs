@@ -10,28 +10,27 @@ namespace CaseBridge.Domain.Services
 {
     public class ClientService : IClientService
     {
-s        private readonly IClientRepository _clientRepository;
-        public ClientService(AppDbContext context)
+        private readonly IClientRepository _clientRepository;
+        public ClientService(IClientRepository clientRepository)
         {
-            _context = context;
+            _clientRepository = clientRepository;
         }
 
         public async Task<Client> FindOrCreateClientAsync(string name, string email)
         {
             // 1. Tenta encontrar pelo e-mail
-            var existingClient = await _context.Clients
-                .FirstOrDefaultAsync(c => c.Email == email);
+            var client = await _clientRepository.GetByEmailAsync(email);
 
             // 2. Se existir, retorna
-            if (existingClient != null)
+            if (client == null)
             {
-                return existingClient;
+                client = new Client(name, email);
+                client = await _clientRepository.CreateAsync(client);
             }
 
             // 3. Se não existir, cria e salva
             var newClient = new Client(name, email);
-            _context.Clients.Add(newClient);
-            await _context.SaveChangesAsync();
+            client = await _clientRepository.CreateAsync(newClient);
 
             return newClient;
         }

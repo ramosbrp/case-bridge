@@ -12,4 +12,3 @@ namespace CaseBridge.Domain.Ports
         Task<Client> FindOrCreateClientAsync(string name, string email);
     }
 }
-}
