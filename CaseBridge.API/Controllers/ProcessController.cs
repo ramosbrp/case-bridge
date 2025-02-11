@@ -1,3 +1,4 @@
+using CaseBridge.Domain.DTO;
 using CaseBridge.Domain.Ports;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,19 +15,24 @@ public class ProcessController : ControllerBase
         _processService = processService;
     }
 
-    [HttpGet(Name = "Process")]
-    public Task<ActionResult> Post()
+    [HttpPost(Name = "Process")]
+    public Task<ActionResult> Post([FromBody] CreateProcessDto dto)
     {
         try
         {
-            _processService.CreateProcessAsync("ok");
-            var mensagem = "ok";
-            return Task.FromResult<ActionResult>(Ok(mensagem));
-        }
-        catch (Exception)
-        {
+            if (!ModelState.IsValid)
+            {
+                return Task.FromResult<ActionResult>(StatusCode(500, new ApiResponse<string>(false, "Dados de entrada inválidos.")));
+            }
 
-            throw;
+            _processService.CreateProcessWithClientAsync(dto);
+            var mensagem = new ApiResponse<string>(true, "Contrato cadastrado com sucesso!");
+
+            return Task.FromResult<ActionResult>(CreatedAtAction("Post", mensagem));
+        }
+        catch (Exception ex)
+        {
+            return Task.FromResult<ActionResult>(StatusCode(500, new ApiResponse<string>(false, ex.Message)));
         }
 
     }

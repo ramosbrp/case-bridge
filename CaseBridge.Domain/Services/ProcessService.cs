@@ -1,4 +1,5 @@
-﻿using CaseBridge.Domain.Entities;
+﻿using CaseBridge.Domain.DTO;
+using CaseBridge.Domain.Entities;
 using CaseBridge.Domain.Ports;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,11 @@ namespace CaseBridge.Domain.Services
             _processService = processService;
         }
 
-        public async Task<Process> CreateProcessAsync(string title)
+        public async Task<Process> CreateProcessWithClientAsync(CreateProcessDto dto)
         {
             try
             {
-                var newProcess = new Process(title);
+                var newProcess = new Process(dto);
 
                 return newProcess;
             }
