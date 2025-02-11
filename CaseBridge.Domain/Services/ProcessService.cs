@@ -12,18 +12,25 @@ namespace CaseBridge.Domain.Services
     public class ProcessService: IProcessService
     {
         private readonly IProcessService _processService;
+        private readonly IClientService _clientService;
 
-        public ProcessService(IProcessService processService) {
+        public ProcessService(IProcessService processService, IClientService clientService) {
             _processService = processService;
+            _clientService = clientService;
         }
 
         public async Task<Process> CreateProcessWithClientAsync(CreateProcessDto dto)
         {
             try
             {
-                var newProcess = new Process(dto);
+                //Encontra ou cria o Client
+                var client = await _clientService.FindOrCreateClientAsync(dto.ClientName, dto.ClientEmail);
 
-                return newProcess;
+                //Cria o Process
+                var process = new Process(dto.Title);
+
+                //Cria a relação (ProcessClient)
+                return process;
             }
             catch (Exception)
             {
