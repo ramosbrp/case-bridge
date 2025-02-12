@@ -122,15 +122,14 @@ namespace CaseBridge.Infrastructure
             using (var conn = new NpgsqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                var sql = "INSERT INTO Process_clients (process_id, client_id) VALUES (@processId, @clientId) RETURNING id";
+                var sql = "INSERT INTO Process_clients (process_id, client_id) VALUES (@processId, @clientId) RETURNING process_id";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("ProcessId", processClient.ProcessId);
                     cmd.Parameters.AddWithValue("ClientId", processClient.ClientId);
-
+                    await cmd.ExecuteNonQueryAsync();
 
                 }
-                ;
 
             }
         }
