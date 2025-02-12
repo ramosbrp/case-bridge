@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CaseBridge.Domain\CaseBridge.Domain.csproj" />
+    <ProjectReference Include="..\CaseBridge.Infrastructure\CaseBridge.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

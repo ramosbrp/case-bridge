@@ -52,7 +52,7 @@ namespace CaseBridge.Infrastructure
                             process = new Process(reader.GetString(1)) // Passa o título diretamente, pois Process sempre precisa de um "title"
                             {
                                 Id = reader.GetInt32(0),
-                                Status = Enum.Parse<StatusEnum>(reader.GetString(2)),
+                                Status = reader.GetString(2),
                                 CreatedAt = reader.GetDateTime(3)
                             };
                         }
@@ -77,7 +77,7 @@ namespace CaseBridge.Infrastructure
                         processes.Add(new Process(reader.GetString(1))
                         {
                             Id = reader.GetInt32(0),
-                            Status = Enum.Parse<StatusEnum>(reader.GetString(2)),
+                            Status = reader.GetString(2),
                             CreatedAt = reader.GetDateTime(3)
                         });
                     }
@@ -114,6 +114,24 @@ namespace CaseBridge.Infrastructure
                     cmd.Parameters.AddWithValue("Id", id);
                     await cmd.ExecuteNonQueryAsync();
                 }
+            }
+        }
+
+        public async Task CreateAssociation(ProcessClient processClient)
+        {
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                await conn.OpenAsync();
+                var sql = "INSERT INTO Process_clients (process_id, client_id) VALUES (@processId, @clientId) RETURNING id";
+                using (var cmd = new NpgsqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("ProcessId", processClient.ProcessId);
+                    cmd.Parameters.AddWithValue("ClientId", processClient.ClientId);
+
+
+                }
+                ;
+
             }
         }
     }

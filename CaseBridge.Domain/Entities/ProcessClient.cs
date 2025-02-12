@@ -11,5 +11,10 @@ namespace CaseBridge.Domain.Entities
         public int ProcessId { get; set; }
         public int ClientId { get; set; }
 
+        public ProcessClient(int processId, int clientId) {
+            ProcessId = processId;
+            ClientId = clientId;
+        }
+
     }
 }

@@ -14,6 +14,7 @@ namespace CaseBridge.Domain.Ports
         Task<IEnumerable<Process>> GetAllAsync();
         Task UpdateAsync(Process process);
         Task DeleteAsync(int id);
+        Task CreateAssociation(ProcessClient processClient);
     }
 
 }

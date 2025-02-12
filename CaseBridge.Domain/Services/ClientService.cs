@@ -21,18 +21,14 @@ namespace CaseBridge.Domain.Services
             // 1. Tenta encontrar pelo e-mail
             var client = await _clientRepository.GetByEmailAsync(email);
 
-            // 2. Se existir, retorna
+            // 2. Se não existir, cria
             if (client == null)
             {
                 client = new Client(name, email);
                 client = await _clientRepository.CreateAsync(client);
             }
 
-            // 3. Se não existir, cria e salva
-            var newClient = new Client(name, email);
-            client = await _clientRepository.CreateAsync(newClient);
-
-            return newClient;
+            return client;
         }
     }
 }

@@ -29,7 +29,7 @@ public class ProcessController : ControllerBase
             await _processService.CreateProcessWithClientAsync(dto);
             var mensagem = new ApiResponse<string>(true, "Contrato cadastrado com sucesso!");
 
-            return CreatedAtAction("Post", mensagem);
+            return CreatedAtAction("Process", mensagem);
         }
         catch (Exception ex)
         {
