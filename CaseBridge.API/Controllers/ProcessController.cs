@@ -15,8 +15,9 @@ public class ProcessController : ControllerBase
         _processService = processService;
     }
 
-    [HttpPost(Name = "Process")]
-    public async Task<ActionResult> Post([FromBody] CreateProcessDto dto)
+    [HttpPost]
+    [Route("api/Process")]
+    public async Task<ActionResult> Process([FromBody] CreateProcessDto dto)
     {
         try
         {
