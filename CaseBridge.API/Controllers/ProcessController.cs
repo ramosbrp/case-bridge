@@ -22,12 +22,12 @@ public class ProcessController : ControllerBase
         if (dto == null || string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.ClientEmail))
             return BadRequest(ApiResponse<string>.Fail("Dados inválidos."));
 
-        var result = await _processService.CreateProcessWithClientAsync(dto.Title, dto.ClientName, dto.ClientEmail);
+        var result = await _processService.CreateProcessWithClientAsync(dto);
 
         if (!result.Success)
             return BadRequest(ApiResponse<string>.Fail(result.ErrorMessage));
 
-        return CreatedAtAction(nameof(GetById), new { id = result.Data }, ApiResponse<int>.Ok(result.Data, "Processo criado com sucesso"));
+        return CreatedAtAction(nameof(Process), new { id = result.Data }, ApiResponse<string>.Ok(result.Data, "Processo criado com sucesso"));
 
     }
 }

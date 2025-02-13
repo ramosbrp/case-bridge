@@ -27,7 +27,7 @@ namespace CaseBridge.Infrastructure
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("Title", process.Title);
-                    cmd.Parameters.AddWithValue("Number", process.Number);
+                    cmd.Parameters.AddWithValue("Number", process.Title);
                     cmd.Parameters.AddWithValue("Status", process.Status);
                     cmd.Parameters.AddWithValue("CreatedAt", process.CreatedAt);
                     process.Id = Convert.ToInt32(await cmd.ExecuteScalarAsync());

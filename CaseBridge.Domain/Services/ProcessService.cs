@@ -15,7 +15,7 @@ namespace CaseBridge.Domain.Services
             _processRepository = processRepository;
         }
 
-        public async Task<Result<int>> CreateProcessWithClientAsync(CreateProcessDto dto)
+        public async Task<Result<string>> CreateProcessWithClientAsync(CreateProcessDto dto)
         {
             try
             {
@@ -30,11 +30,11 @@ namespace CaseBridge.Domain.Services
                 var process_client = new ProcessClient(process.Id, client.Id);
                 await _processRepository.CreateAssociation(process_client);
 
-                return Result<int>.Ok(process.Id); // Retorna o ID do processo criado
+                return Result<string>.Ok(process.Number); // Retorna o ID do processo criado
             }
             catch (Exception ex)
             {
-                return Result<int>.Fail($"Erro ao criar o processo: {ex.Message}");
+                return Result<string>.Fail($"Erro ao criar o processo: {ex.Message}");
             }
 
         }

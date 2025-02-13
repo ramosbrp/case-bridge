@@ -13,7 +13,7 @@ namespace CaseBridge.Domain.Ports
     {
         //Task<Process?> GetByIdAsync(Process process);
         //Task<IEnumerable<Process>> GetAllAsync();
-        Task<Result<int>> CreateProcessWithClientAsync(CreateProcessDto dto);
+        Task<Result<string>> CreateProcessWithClientAsync(CreateProcessDto dto);
         //Task UpdateAsync(Process process);
         //Task DeleteAsync(int id);
     }

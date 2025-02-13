@@ -1,3 +1,4 @@
+using CaseBridge.API;
 using CaseBridge.Domain.Ports;
 using CaseBridge.Domain.Services;
 using CaseBridge.Infrastructure;
@@ -23,6 +24,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+// Adiciona o Middleware de Tratamento de Erros
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
