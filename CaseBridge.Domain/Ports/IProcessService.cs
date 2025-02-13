@@ -1,4 +1,5 @@
-﻿using CaseBridge.Domain.DTO;
+﻿using CaseBridge.Domain.Common;
+using CaseBridge.Domain.DTO;
 using CaseBridge.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace CaseBridge.Domain.Ports
     {
         //Task<Process?> GetByIdAsync(Process process);
         //Task<IEnumerable<Process>> GetAllAsync();
-        Task<Process> CreateProcessWithClientAsync(CreateProcessDto dto);
+        Task<Result<int>> CreateProcessWithClientAsync(CreateProcessDto dto);
         //Task UpdateAsync(Process process);
         //Task DeleteAsync(int id);
     }

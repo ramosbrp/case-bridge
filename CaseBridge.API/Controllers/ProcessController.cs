@@ -19,22 +19,15 @@ public class ProcessController : ControllerBase
     [Route("api/Process")]
     public async Task<ActionResult> Process([FromBody] CreateProcessDto dto)
     {
-        try
-        {
-            if (!ModelState.IsValid)
-            {
-                return StatusCode(500, new ApiResponse<string>(false, "Dados de entrada inválidos."));
-            }
+        if (dto == null || string.IsNullOrWhiteSpace(dto.Title) || string.IsNullOrWhiteSpace(dto.ClientEmail))
+            return BadRequest(ApiResponse<string>.Fail("Dados inválidos."));
 
-            await _processService.CreateProcessWithClientAsync(dto);
-            var mensagem = new ApiResponse<string>(true, "Contrato cadastrado com sucesso!");
+        var result = await _processService.CreateProcessWithClientAsync(dto.Title, dto.ClientName, dto.ClientEmail);
 
-            return CreatedAtAction("Process", mensagem);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new ApiResponse<string>(false, ex.Message));
-        }
+        if (!result.Success)
+            return BadRequest(ApiResponse<string>.Fail(result.ErrorMessage));
+
+        return CreatedAtAction(nameof(GetById), new { id = result.Data }, ApiResponse<int>.Ok(result.Data, "Processo criado com sucesso"));
 
     }
 }
