@@ -28,6 +28,7 @@ namespace CaseBridge.Domain.Services
                 // 3. Cria a relação (ProcessClient)
                 var process_client = new ProcessClient(process.Id, client.Id);
                 await _processRepository.CreateAssociation(process_client);
+
                 return process;
             }
             catch (Exception ex)
