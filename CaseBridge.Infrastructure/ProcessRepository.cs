@@ -23,10 +23,11 @@ namespace CaseBridge.Infrastructure
             using (var conn = new NpgsqlConnection(_connectionString))
             {
                 await conn.OpenAsync();
-                var sql = "INSERT INTO Processes (title, status, created_at) VALUES (@Title, @Status, @CreatedAt) RETURNING id";
+                var sql = "INSERT INTO Processes (title, number, status, created_at) VALUES (@Title, @Number, @Status, @CreatedAt) RETURNING id";
                 using (var cmd = new NpgsqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("Title", process.Title);
+                    cmd.Parameters.AddWithValue("Number", process.Number);
                     cmd.Parameters.AddWithValue("Status", process.Status);
                     cmd.Parameters.AddWithValue("CreatedAt", process.CreatedAt);
                     process.Id = Convert.ToInt32(await cmd.ExecuteScalarAsync());
